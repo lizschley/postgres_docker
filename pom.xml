@@ -12,12 +12,13 @@
 	<artifactId>postgres_demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>postgres_demo</name>
-	<description></description>
+	<description>Learning docker</description>
 	<packaging>jar</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -36,7 +37,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -65,5 +65,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
