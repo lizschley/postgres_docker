@@ -3,22 +3,14 @@ services:
   postgres_demo:
     image: postgres_demo:latest
     build:
-      context: src/main/docker
+      context: .
+      tags:
+        - postgres_demo:latest
     container_name: postgres_demo
     depends_on:
       - postgres_db
     volumes:
       - postgres_demo:/var/lib/postgres_demo
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres_db
-      - SPRING_DATASOURCE_USERNAME=liz
-      - SPRING_DATASOURCE_PASSWORD=password
-      - spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-
-        # Hibernate ddl auto (create, create-drop, validate, update)
-      - spring.jpa.hibernate.ddl-auto=update
-
 
   postgres_db:
     container_name: postgres_db
@@ -30,7 +22,7 @@ services:
     volumes:
       - postgres_db:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5438:5432"
     networks:
       - postgres
     restart: unless-stopped
