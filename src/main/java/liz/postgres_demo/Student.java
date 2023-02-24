@@ -1,13 +1,9 @@
 package liz.postgres_demo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.util.Locale;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -25,18 +21,45 @@ public class Student {
             strategy = SEQUENCE,
             generator = "student_sequence"
     )
+    @Column(
+       name = "id",
+       updatable = false
+    )
     private Long id;
-    private String firstname;
-    private String lastname;
+
+    @Column(
+            name = "first_name",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String firstName;
+
+    @Column(
+            name = "last_name",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String lastName;
+
+    @Column(
+            name = "email",
+            nullable = false,
+            columnDefinition = "TEXT",
+            unique = true
+    )
     private String email;
+
+    @Column(
+            name = "age"
+    )
     private Integer age;
 
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstName + '\'' +
+                ", lastname='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 '}';
