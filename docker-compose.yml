@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  postgres_demo:
+    image: postgres_demo:latest
+    build:
+      context: .
+      tags:
+        - postgres_demo:latest
+    container_name: postgres_demo
+    depends_on:
+      - postgres_db
+    volumes:
+      - postgres_demo:/var/lib/postgres_demo
+
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:15.2-alpine
+    environment:
+      - POSTGRES_USER=liz
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres_db
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_demo
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5033:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+networks:
+  postgres:
+    driver: bridge
+  spring:
+    driver: bridge
+
+volumes:
+  postgres_db:
+  pgadmin:
+  postgres_demo:
